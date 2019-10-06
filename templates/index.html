@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Xiyu's Datastore and Firebase Auth Example</title>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css">
+      <!-- [END gae_python37_auth_include_firebaseui] -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+
 </head>
-<body>
-$END$
+<body style="background-color: navajowhite">
+
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDLn9N_d2V3OpLpatH282IrpqptSvzzDzY",
+        authDomain: "apt-assignment5-254916.firebaseapp.com",
+        databaseURL: "https://apt-assignment5-254916.firebaseio.com",
+        projectId: "apt-assignment5-254916",
+        storageBucket: "apt-assignment5-254916.appspot.com",
+        messagingSenderId: "1054466516585",
+        appId: "1:1054466516585:web:3477f0f9fb5d401c2fe4f8",
+        measurementId: "G-5B9TGVH7Y2"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+  <h1>Xiyu's Web-App Showing Account Details and Login History</h1>
+
+
+    <div id="firebaseui-auth-container"></div>
+
+    <div id="login-info" hidden=true>
+      <h2 style="font-size: 50px">Which Is Not So Useful :D</h2>
+      <h2>Login info:   </h2>
+        {% if user_data %}
+        <table align="center">
+                <tr>
+                <td>Name:  </td>
+                <td style="color: #555555">{{ user_data['name'] }}</td>
+                </tr>
+                <tr>
+                <td>Email:  </td>
+                <td style="color: #555555">{{ user_data['email'] }}</td>
+                </tr>
+                <tr>
+                    <td>Last 10 visits:</td>>
+                    <td></td>
+                <tr>
+            </table>
+        {% for time in times %}
+              <p style="color: #555555">{{ time['timestamp'] }}</p>
+        {% endfor %}
+
+      {% elif error_message %}
+        <p>Error: {{ error_message }}</p>
+      {% endif %}
+
+    </div>
+
+    <button id="sign-out" hidden=true style="background-color: white; color: #444444;  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;">Sign Out</button>
+
+
 </body>
 </html>
